@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hadantty/Screens/LoginScreen/LoginScreen.dart';
 import 'package:hadantty/Screens/PersonHome/PersonHomeScreen.dart';
-import 'package:hadantty/Splash_home_Screen.dart';
+
+import '../auth/Register/RegisterUser/registerUser.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key key}) : super(key: key);
@@ -9,6 +10,12 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size ;
+
+    TextEditingController nameController = TextEditingController();
+    TextEditingController CityController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -50,46 +57,47 @@ class SignUpScreen extends StatelessWidget {
                             validator: (data) {
                               if (data.isEmpty) return 'Field is required';
                             },
+                            controller: nameController,
                             decoration: InputDecoration(
                                 icon: Icon(
                                   Icons.drive_file_rename_outline,
                                   color: Color(0xffa3a3a3),
                                 ),
-                                hintText: 'First Name',
+                                hintText: 'Full Name',
                                 border: InputBorder.none)),
                       ),
                     ),
                     SizedBox(width: size.width*0.02,),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 5),
-                        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-                        width: size.width*0.4,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(100),
-                          boxShadow:  [
-                            BoxShadow(
-                              color:  Color(0x3f000000),
-                              offset:  Offset(0, 2),
-                              blurRadius:  2,
-                            ),
-                          ],
-                        ),
-
-                        child: TextFormField(
-                            validator: (data) {
-                              if (data.isEmpty) return 'Field is required';
-                            },
-                            decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.drive_file_rename_outline,
-                                  color: Color(0xffa3a3a3),
-                                ),
-                                hintText: 'Last Name',
-                                border: InputBorder.none)),
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: Container(
+                    //     margin: EdgeInsets.symmetric(vertical: 5),
+                    //     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                    //     width: size.width*0.4,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.white,
+                    //       borderRadius: BorderRadius.circular(100),
+                    //       boxShadow:  [
+                    //         BoxShadow(
+                    //           color:  Color(0x3f000000),
+                    //           offset:  Offset(0, 2),
+                    //           blurRadius:  2,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //
+                    //     child: TextFormField(
+                    //         validator: (data) {
+                    //           if (data.isEmpty) return 'Field is required';
+                    //         },
+                    //         decoration: InputDecoration(
+                    //             icon: Icon(
+                    //               Icons.drive_file_rename_outline,
+                    //               color: Color(0xffa3a3a3),
+                    //             ),
+                    //             hintText: 'Last Name',
+                    //             border: InputBorder.none)),
+                    //   ),
+                    // ),
                   ],
                 ),
                 Container(
@@ -112,12 +120,13 @@ class SignUpScreen extends StatelessWidget {
                       validator: (data) {
                         if (data.isEmpty) return 'Field is required';
                       },
+                      controller: CityController,
                       decoration: InputDecoration(
                           icon: Icon(
-                            Icons.person,
+                            Icons.location_city,
                             color: Color(0xffa3a3a3),
                           ),
-                          hintText: 'Email',
+                          hintText: 'City',
                           border: InputBorder.none)),
                 ),
                 Container(
@@ -140,6 +149,36 @@ class SignUpScreen extends StatelessWidget {
                       validator: (data) {
                         if (data.isEmpty) return 'Field is required';
                       },
+                      controller: emailController ,
+                      decoration: InputDecoration(
+                          icon: Icon(
+                            Icons.person,
+                            color: Color(0xffa3a3a3),
+                          ),
+                          hintText: 'Password',
+                          border: InputBorder.none)),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(40),
+                    boxShadow:  [
+                      BoxShadow(
+                        color:  Color(0x3f000000),
+                        offset:  Offset(0, 2),
+                        blurRadius:  2,
+                      ),
+                    ],
+                  ),
+                  child: TextFormField(
+                      obscureText: true,
+                      validator: (data) {
+                        if (data.isEmpty) return 'Field is required';
+                      },
+                      controller: passwordController ,
                       decoration: InputDecoration(
                           icon: Icon(
                             Icons.password,
@@ -165,11 +204,11 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(context,
+                      onPressed: () async {
+                        await RegisterUser.signupAccount(nameController.text, CityController.text,emailController.text,passwordController.text);
                             MaterialPageRoute(builder: (Context) {
-                              return PersonHomeScreen() ;
-                            }));
+                              return LoginScreen() ;
+                            });
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,

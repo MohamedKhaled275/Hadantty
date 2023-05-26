@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:hadantty/Screens/IncubationSignUp/IncubationBeds.dart';
 import 'package:hadantty/Screens/LoginScreen/LoginScreen.dart';
+import 'package:hadantty/Screens/auth/Register/RegisterInc/registerIncubation.dart';
 
 class IncubationRegister extends StatelessWidget {
   const IncubationRegister({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController IncNameController = TextEditingController();
+    TextEditingController CityController = TextEditingController();
+    TextEditingController PhoneNumberController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
@@ -29,30 +36,30 @@ class IncubationRegister extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      child:
-                      Container(
+                      child: Container(
                         margin: EdgeInsets.symmetric(vertical: 5),
-                        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
-                        width: size.width*0.4,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                        width: size.width * 0.4,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(100),
-                          boxShadow:  [
+                          boxShadow: [
                             BoxShadow(
-                              color:  Color(0x3f000000),
-                              offset:  Offset(0, 2),
-                              blurRadius:  2,
+                              color: Color(0x3f000000),
+                              offset: Offset(0, 2),
+                              blurRadius: 2,
                             ),
                           ],
                         ),
-
                         child: TextFormField(
                             validator: (data) {
                               if (data.isEmpty) return 'Field is required';
                             },
+                            controller: IncNameController,
                             decoration: InputDecoration(
                                 hintText: 'Incubation Name',
-                                hintStyle: TextStyle(color:Color(0xffd9d9d9)),
+                                hintStyle: TextStyle(color: Color(0xffd9d9d9)),
                                 border: InputBorder.none)),
                       ),
                     ),
@@ -65,22 +72,47 @@ class IncubationRegister extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(100),
-                    boxShadow:  [
+                    boxShadow: [
                       BoxShadow(
-                        color:  Color(0x3f000000),
-                        offset:  Offset(0, 2),
-                        blurRadius:  2,
+                        color: Color(0x3f000000),
+                        offset: Offset(0, 2),
+                        blurRadius: 2,
                       ),
                     ],
                   ),
-
                   child: TextFormField(
                       validator: (data) {
                         if (data.isEmpty) return 'Field is required';
                       },
+                      controller: CityController,
+                      decoration: InputDecoration(
+                          hintText: 'City',
+                          hintStyle: TextStyle(color: Color(0xffd9d9d9)),
+                          border: InputBorder.none)),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(100),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3f000000),
+                        offset: Offset(0, 2),
+                        blurRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: TextFormField(
+                      validator: (data) {
+                        if (data.isEmpty) return 'Field is required';
+                      },
+                      controller: emailController,
                       decoration: InputDecoration(
                           hintText: 'Email',
-                          hintStyle: TextStyle(color:Color(0xffd9d9d9)),
+                          hintStyle: TextStyle(color: Color(0xffd9d9d9)),
                           border: InputBorder.none)),
                 ),
                 Container(
@@ -90,11 +122,11 @@ class IncubationRegister extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(40),
-                    boxShadow:  [
+                    boxShadow: [
                       BoxShadow(
-                        color:  Color(0x3f000000),
-                        offset:  Offset(0, 2),
-                        blurRadius:  2,
+                        color: Color(0x3f000000),
+                        offset: Offset(0, 2),
+                        blurRadius: 2,
                       ),
                     ],
                   ),
@@ -103,9 +135,36 @@ class IncubationRegister extends StatelessWidget {
                       validator: (data) {
                         if (data.isEmpty) return 'Field is required';
                       },
+                      controller: passwordController,
                       decoration: InputDecoration(
                           hintText: 'Password',
-                          hintStyle: TextStyle(color:Color(0xffd9d9d9)),
+                          hintStyle: TextStyle(color: Color(0xffd9d9d9)),
+                          border: InputBorder.none)),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  padding: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(40),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3f000000),
+                        offset: Offset(0, 2),
+                        blurRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: TextFormField(
+                      obscureText: true,
+                      validator: (data) {
+                        if (data.isEmpty) return 'Field is required';
+                      },
+                      controller: PhoneNumberController,
+                      decoration: InputDecoration(
+                          hintText: 'Phone Number',
+                          hintStyle: TextStyle(color: Color(0xffd9d9d9)),
                           border: InputBorder.none)),
                 ),
                 SizedBox(
@@ -126,10 +185,16 @@ class IncubationRegister extends StatelessWidget {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(context,
+                        RegisterInc.signupAccount(
+                            IncNameController.text,
+                            emailController.text,
+                            PhoneNumberController.text,
+                            passwordController.text,
+                            CityController.text);
+                        Navigator.push(context,
                             MaterialPageRoute(builder: (Context) {
-                              return IncubationBeds();
-                            }));
+                          return IncubationBeds();
+                        }));
                       },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -162,8 +227,8 @@ class IncubationRegister extends StatelessWidget {
                           onTap: () {
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (Context) {
-                                  return LoginScreen();
-                                }));
+                              return LoginScreen();
+                            }));
                           },
                           child: Text(
                             'Login',
@@ -182,7 +247,6 @@ class IncubationRegister extends StatelessWidget {
           ),
         ),
       ),
-
     );
   }
 }

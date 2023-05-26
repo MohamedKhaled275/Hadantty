@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hadantty/Screens/Components/CustomAppBar.dart';
 import 'package:hadantty/Screens/PersonHome/PersonBooking.dart';
 
 class IncubationScreen extends StatelessWidget {
-  const IncubationScreen({Key key}) : super(key: key);
-
+  const IncubationScreen( {Key key,@required this.IncName}) : super(key: key);
+  final String IncName;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: const CustomAppBar(),
       body: Container(
         width: size.width,
         height: size.height,
@@ -54,7 +57,7 @@ class IncubationScreen extends StatelessWidget {
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 5),
                           child: RichText(
-                              text: const TextSpan(
+                              text: TextSpan(
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
@@ -63,7 +66,7 @@ class IncubationScreen extends StatelessWidget {
                                   ),
                                   children: [
                                     TextSpan(
-                                      text: 'Incubation Name\n',
+                                      text: '$IncName\n',
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
@@ -118,7 +121,7 @@ class IncubationScreen extends StatelessWidget {
                             ),
                             child: TextButton(
                               onPressed: () {
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                     context, MaterialPageRoute(builder: (context) => PersonBooking()));
                               },
                               style: TextButton.styleFrom(
@@ -136,7 +139,6 @@ class IncubationScreen extends StatelessWidget {
                     ),
                   ),
                 )),
-
           ],
         ),
       ),

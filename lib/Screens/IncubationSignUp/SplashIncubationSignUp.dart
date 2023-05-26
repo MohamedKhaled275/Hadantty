@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hadantty/Screens/IncubationHomeScreen/IncubationHomeScreen.dart';
+import 'package:hadantty/Screens/LoginScreen/LoginScreen.dart';
 
 class SplashIncubationSignUp extends StatefulWidget {
   SplashIncubationSignUp({Key key}) : super(key: key);
@@ -14,9 +15,9 @@ class _SplashscreenState extends State<SplashIncubationSignUp> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 4),
+        Duration(seconds: 1),
             () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => IncubationHomeScreen())));
+            context, MaterialPageRoute(builder: (context) => LoginScreen())));
   }
 
   @override

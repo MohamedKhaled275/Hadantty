@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hadantty/Screens/HomeScreen/HomeScreen.dart';
+import '../PersonHome/PersonHomeScreen.dart';
 
 class NewPassword extends StatelessWidget {
   const NewPassword({Key key}) : super(key: key);
@@ -91,7 +91,7 @@ class NewPassword extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (Context) {
-                            return HomeScreen() ;
+                            return PersonHomeScreen() ;
                           }));
                     },
                     style: TextButton.styleFrom(

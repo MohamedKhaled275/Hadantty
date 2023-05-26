@@ -203,7 +203,7 @@ class PersonBooking extends StatelessWidget {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                           context, MaterialPageRoute(builder: (context) => PersonBookingSplashScreen()));
                     },
                     style: TextButton.styleFrom(
